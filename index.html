@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Elite Suits | Rent & Buy</title>
+<style>
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    background:#000;
+    color:#fff;
+    line-height:1.6;
+}
+nav {
+    background:#111;
+    padding:20px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    border-bottom:2px solid #ff7b00;
+}
+nav ul {
+    display:flex;
+    justify-content:center;
+    list-style:none;
+    flex-wrap:wrap;
+}
+nav li {
+    margin:0 20px;
+}
+nav a {
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    font-size:1.1rem;
+    padding:10px 20px;
+    border-radius:30px;
+    transition:all 0.3s;
+    cursor:pointer;
+}
+nav a:hover {
+    background:#ff7b00;
+    color:#000;
+}
+.page {
+    display:none;
+    padding:50px 20px;
+    max-width:1200px;
+    margin:0 auto;
+}
+.active {
+    display:block;
+}
+h1 {
+    font-size:3rem;
+    margin-bottom:30px;
+    color:#ff7b00;
+    text-align:center;
+    text-shadow:0 0 10px rgba(255,123,0,0.3);
+}
+h2 {
+    font-size:2.5rem;
+    margin-bottom:25px;
+    color:#ff7b00;
+    text-align:center;
+}
+.btn {
+    padding:15px 40px;
+    background:linear-gradient(45deg,#ff7b00,#ff5500);
+    color:#000;
+    border:none;
+    margin:15px;
+    cursor:pointer;
+    font-weight:bold;
+    border-radius:50px;
+    font-size:1.1rem;
+    transition:all 0.3s;
+    display:inline-block;
+    text-decoration:none;
+}
+.btn:hover {
+    background:linear-gradient(45deg,#00ff88,#00ccff);
+    color:#000;
+    transform:translateY(-5px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+.suits {
+    display:none;
+    margin-top:40px;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+    padding:20px;
+}
+.suit {
+    background:#222;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    transition:all 0.3s;
+    border:1px solid #333;
+}
+.suit:hover {
+    transform:translateY(-10px);
+    border-color:#ff7b00;
+    box-shadow:0 15px 30px rgba(255,123,0,0.2);
+}
+.suit img {
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-bottom:20px;
+    border:2px solid #444;
+}
+.home-img {
+    width:600px;
+    max-width:90%;
+    height:auto;
+    border-radius:20px;
+    margin:40px auto;
+    display:block;
+    border:3px solid #ff7b00;
+    box-shadow:0 0 30px rgba(255,123,0,0.5);
+    animation:float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0%, 100% { transform:translateY(0px); }
+    50% { transform:translateY(-20px); }
+}
+#home {
+    text-align:center;
+    padding-top:80px;
+}
+.home-btns {
+    margin:50px 0;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+.about-content {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:40px;
+    margin-top:40px;
+}
+.about-card {
+    background:#222;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    border:1px solid #333;
+}
+.about-card img {
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+.contact-box {
+    background:#222;
+    padding:40px;
+    border-radius:15px;
+    max-width:600px;
+    margin:40px auto;
+    border:1px solid #333;
+}
+input, textarea {
+    width:100%;
+    padding:15px;
+    margin:15px 0;
+    background:#111;
+    border:1px solid #444;
+    border-radius:10px;
+    color:#fff;
+    font-size:1rem;
+}
+input:focus, textarea:focus {
+    outline:none;
+    border-color:#ff7b00;
+}
+.contact-buttons {
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+.contact-btn {
+    padding:15px 30px;
+    background:#111;
+    color:#fff;
+    border-radius:50px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transition:all 0.3s;
+    border:1px solid #444;
+}
+.contact-btn:hover {
+    background:#ff7b00;
+    color:#000;
+    transform:translateY(-5px);
+}
+.social-icons {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:40px;
+    font-size:2rem;
+}
+.social-icons a {
+    color:#ff7b00;
+    transition:all 0.3s;
+}
+.social-icons a:hover {
+    color:#00ff88;
+    transform:scale(1.2);
+}
+.category-btns {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin:30px 0;
+}
+.category-btn {
+    padding:12px 30px;
+    background:#222;
+    color:#fff;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:all 0.3s;
+    border:1px solid #444;
+}
+.category-btn:hover, .category-btn.active {
+    background:#ff7b00;
+    color:#000;
+    transform:translateY(-3px);
+}
+.price {
+    color:#ff7b00;
+    font-size:1.3rem;
+    font-weight:bold;
+    margin:15px 0;
+}
+footer {
+    text-align:center;
+    padding:40px 20px;
+    background:#111;
+    margin-top:60px;
+    border-top:2px solid #ff7b00;
+}
+@media (max-width:768px) {
+    nav ul {
+        flex-direction:column;
+        align-items:center;
+    }
+    nav li {
+        margin:10px 0;
+    }
+    h1 {
+        font-size:2.2rem;
+    }
+    h2 {
+        font-size:2rem;
+    }
+    .home-img {
+        width:90%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<ul>
+<li><a onclick="showPage('home')">Home</a></li>
+<li><a onclick="showPage('about')">About</a></li>
+<li><a onclick="showPage('rental')">Rental</a></li>
+<li><a onclick="showPage('sales')">Sales</a></li>
+<li><a onclick="showPage('contact')">Contact</a></li>
+</ul>
+</nav>
+
+<div id="home" class="page active">
+    <h1>Welcome to HAMUDI Suits</h1>
+    <p style="text-align:center; max-width:800px; margin:0 auto 30px; font-size:1.2rem; color:#ccc;">HAMUDI Suits waxa ka helaysa , kiraynta iyo iibinta suits.</p>
+    <img src="contactimg 2.jpg" alt="Premium Suit" class="home-img">
+    <div class="home-btns">
+        <button class="btn" onclick="showPage('sales')">View Sales Suits</button>
+        <button class="btn" onclick="showPage('rental')">View Rental Suits</button>
+    </div>
+</div>
+
+<div id="about" class="page">
+    <h2>About Us</h2>
+    <div class="about-content">
+        <div class="about-card">
+            <img src="about 4.jpg" alt="Our Store">
+            <h3>Our Story</h3>
+            <p> HAMUDI Suits waxay leedahay tariikh aad u baladhan . Hamudi suits markii hore waxay ahayd qeyb Rental qudha .</p>
+        </div>
+        <div class="about-card">
+            <img src="about 2.jpg" alt="Quality">
+            <h3>Premium Quality</h3>
+            <p>Tayada dharka Hamudi waa mid heer sare ah waxa laga keena Turkish, England .Hamudi waad ka helaysa size kasta macmiil</p>
+        </div>
+        <div class="about-card">
+            <img src="about 3.jpg" alt="Service " height="550px"> 
+            <h3>Exceptional Service</h3>
+            <p> Macmiil waxa helaysa adeegyo dheerada hada iibsatid suit dhamystiran sidoo kale waxa helaysa maalmo bilasha hada dhawr jeer kiraysatid </p>
+        </div>
+    </div>
+</div>
+
+<div id="rental" class="page">
+    <h2>Rental Suits</h2>
+    <p style="text-align:center; color:#ccc; margin-bottom:30px;">Perfect for special occasions. Rent premium suits for weddings, galas, and important events.</p>
+    
+    <div class="category-btns">
+        <button class="category-btn active" onclick="showSuits('rw')">Wedding</button>
+        <button class="category-btn" onclick="showSuits('rb')">Business</button>
+        <button class="category-btn" onclick="showSuits('rc')">Casual</button>
+    </div>
+
+    <div id="rw" class="suits" style="display:grid;">
+        <div class="suit">
+            <img src="suit 1.jpg">
+            <h3>Classic Navy suits</h3>
+            <p>Perfect for black-tie weddings and formal events</p>
+            <div class="price">$30 / Day</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+        <div class="suit">
+            <img src="suit2.jpg">
+            <h3> Classic black  suits</h3>
+            <p>Modern black suit for contemporary weddings</p>
+            <div class="price">$30 / day</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+        <div class="suit">
+            <img src="suit 3.jpg">
+            <h3>Classic white suits</h3>
+            <p>Elegant three-piece suit with vest included</p>
+            <div class="price">$119 / week</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+    </div>
+
+    <div id="rb" class="suits">
+        <div class="suit">
+            <img src="bussiness 2.jpg">
+            <h3>Business Professional</h3>
+            <p>Classic business suit for meetings and conferences</p>
+            <div class="price">$75 / week</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+        <div class="suit">
+            <img src="suit 5.jpg">
+            <h3>Executive Grey</h3>
+            <p>Sharp grey suit for boardroom presentations</p>
+            <div class="price">$85 / week</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+        <div class="suit">
+            <img src="suit 6.jpg">
+            <h3>Charcoal Business</h3>
+            <p>Dark charcoal suit for important business meetings</p>
+            <div class="price">$82 / week</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+    </div>
+
+    <div id="rc" class="suits">
+        <div class="suit">
+            <img src="casualsuit 1.jpg">
+            <h3></h3>
+            <p>Lightweight linen suit for casual summer events</p>
+            <div class="price">$65 / week</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+        <div class="suit">
+            <img src="casualsuit 2.jpg">
+            <h3>Casual Blazer</h3>
+            <p>Casual blazer and trousers for weekend events</p>
+            <div class="price">$59 / week</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+        <div class="suit">
+            <img src="casualsuit 3.jpg">
+            <h3>Weekend Casual</h3>
+            <p>Comfortable casual suit for social gatherings</p>
+            <div class="price">$55 / week</div>
+            <button class="btn" style="width:100%;">Rent Now</button>
+        </div>
+    </div>
+</div>
+
+<div id="sales" class="page">
+    <h2>Sales Suits</h2>
+    <p style="text-align:center; color:#ccc; margin-bottom:30px;">Own a piece of elegance. Browse our collection of premium suits available for purchase.</p>
+    
+    <div class="category-btns">
+        <button class="category-btn active" onclick="showSuits('sw')">Suits</button>
+        <button class="category-btn" onclick="showSuits('sb')">Shoes</button>
+        <button class="category-btn" onclick="showSuits('sc')">Shirts</button>
+    </div>
+
+    <div id="sw" class="suits" style="display:grid;">
+        <div class="suit">
+            <img src="suitsales 2.jpg">
+            <h3>classic suit sales </h3>
+            <p>Handcrafted Italian wool suit for your special day</p>
+            <div class="price">$60</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="suit">
+            <img src="suitsales 3.jpg">
+            <h3>Classic suit sales </h3>
+            <p>Custom tailored tuxedo for formal weddings</p>
+            <div class="price">$60</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="suit">
+            <img src="suitssales 4.jpg">
+            <h3>classic suit sales </h3>
+            <p>Designer suit with silk lining and premium details</p>
+            <div class="price">$60</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+    </div>
+
+    <div id="sb" class="suits">
+        <div class="suit">
+            <img src="shoes 1.jpg">
+            <h3>Black classic shoes  </h3>
+            <p>suitable shoes for Wedding & classic outfit</p>
+            <div class="price">$40</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="suit">
+            <img src="shoes 3.jpg">
+            <h3>Brown classic shoes  </h3>
+            <p>suitable shoes for Wedding & classic outfit</p>
+            <div class="price">$40</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="suit">
+            <img src="shoes 5.jpg">
+            <h3>Air force shoes </h3>
+            <p>Suitable suits , baggy jeans , soft baggy & also jeans </p>
+            <div class="price">$20</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+    </div>
+
+    <div id="sc" class="suits">
+        <div class="suit">
+            <img src="shirts 1.jpg">
+            <h3>Classic shirts </h3>
+            <p>Available any color do want</p>
+            <div class="price">$15</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="suit">
+            <img src="t-shirts.jpg">
+            <h3>T-shirts </h3>
+            <p>Come early, we've brought you a t-shirts at a reasonable price </p>
+            <div class="price">$10</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="suit">
+            <img src="oldmoney.jpg">
+            <h3>Old money outfit</h3>
+            <p>Old money outfit ready for you with pants </p>
+            <div class="price">$25</div>
+            <button class="btn" style="width:100%;">Buy Now</button>
+        </div>
+    </div>
+</div>
+
+<div id="contact" class="page">
+    <h2>Contact Us</h2>
+    <p style="text-align:center; color:#ccc; margin-bottom:40px;">Get in touch for inquiries, fittings, or style consultations</p>
+    
+    <div class="contact-box">
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <input type="tel" placeholder="Phone Number">
+        <textarea placeholder="Your Message" rows="5"></textarea>
+        <button class="btn" style="width:100%; margin-top:20px;" onclick="alert('Message sent! We will contact you soon.')">Send Message</button>
+    </div>
+    
+    <div class="contact-buttons">
+        <a href="https://wa.me/1234567890" class="contact-btn" target="_blank">
+            <span style="font-size:1.5rem;">📱</span> WhatsApp: +252 633336531
+        </a>
+        <a href="tel:+1234567890" class="contact-btn">
+            <span style="font-size:1.5rem;">☎️</span> Call Us: +252 0633336531
+        </a>
+        <a href="https://instagram.com/HAMUDI" class="contact-btn" target="_blank">
+            <span style="font-size:1.5rem;">📸</span> Instagram: @HAMUDI
+        </a>
+    </div>
+    
+    <div class="social-icons">
+        <a href="https://facebook.com" target="_blank">📘</a>
+        <a href="https://instagram.com" target="_blank">📷</a>
+        <a href="https://twitter.com" target="_blank">🐦</a>
+        <a href="https://pinterest.com" target="_blank">📌</a>
+    </div>
+</div>
+
+<footer>
+    <p style="margin-bottom:20px;">© 2023 HAMUDI Suits. All rights reserved😊.</p>
+    <p style="color:#ff7b00;">HAMUDI Suit Rental & Sales</p>
+    <p style="margin-top:20px; color:#ccc;">123 Fashion Street, Style City | Open 24/7 a day</p>
+</footer>
+
+<script>
+function showPage(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.suits').forEach(s=>s.style.display="none");
+    
+    
+    document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('active'));
+    if(id === 'rental') {
+        document.querySelector('#rental .category-btn').classList.add('active');
+        document.getElementById('rw').style.display="grid";
+    }
+    if(id === 'sales') {
+        document.querySelector('#sales .category-btn').classList.add('active');
+        document.getElementById('sw').style.display="grid";
+    }
+}
+
+function showSuits(id){
+    document.querySelectorAll('.suits').forEach(s=>s.style.display="none");
+    document.getElementById(id).style.display="grid";
+    
+    // Update active category button
+    document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('active'));
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
